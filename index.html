@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,19 @@
 
 
 
-  <div class="row justify-content-center text-center" id="app">
+
+
+  <div class="row justify-content-center text-center" id="app" >
+
+
+    <div class="card-body" v-if="showBox">
+ 
+        {{ boxContent }}
+     
+    </div>
+  
+
+
     <a class="button col-md-3 col-sm-6 col-9" href="#" @click="changeBackground('about')" style="--color: #060606;">
       <span></span>
       <span></span>
@@ -63,34 +75,79 @@
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
+
+  
   const { createApp, ref } = Vue
 
   createApp({
     setup() {
-      const message = ref('Hello hugo!')
+      const showBox = ref(false);
+      const boxContent = ref(''); 
+      const backgroundColor = ref('#fff');
+      // const backgroundImages = {
+      //   'about': 'url("assets/images/about.webp")',
+      //   'projects': 'url("assets/images/projects.webp")',
+      //   'resume': 'url("assets/images/resume.webp")',
+      //   'education': 'url("assets/images/education.webp")',
+      //   'contact': 'url("assets/images/contact.webp")',
+      // };
 
-      const backgroundImages = {
-        'about': 'url("assets/images/about.webp")',
-        'projects': 'url("assets/images/projects.webp")',
-        'resume': 'url("assets/images/resume.webp")',
-        'education': 'url("assets/images/education.webp")',
-        'contact': 'url("assets/images/contact.webp")',
-      };
 
 
       return {
-        message,
-        backgroundImages,
+        // backgroundImages,
+        backgroundColor,
+        showBox,
+        boxContent
       };
     },
 
     methods: {
       changeBackground(buttonKey) {
-        console.log(buttonKey);
         const main = document.getElementById('main');
-
       
-        main.style.backgroundImage = this.backgroundImages[buttonKey];
+        switch (buttonKey) {
+          case 'about':
+            main.style.backgroundColor = '#C5C5C5';
+            break;
+          case 'projects':
+            main.style.backgroundColor = '#4C5B61';
+            break;
+          case 'resume':
+            main.style.backgroundColor = '#829191';
+            break;
+          case 'education':
+            main.style.backgroundColor = '#949B96';
+            break;
+          case 'contact':
+            main.style.backgroundColor = '#2C423F';
+            break;
+      
+        }
+
+        // main.style.backgroundImage = this.backgroundImages[buttonKey];
+
+        this.showBox = true; // Set showBox to true on click
+
+        // Optional: Set box content based on buttonKey
+        switch (buttonKey) {
+          case 'about':
+            
+            this.boxContent = 'About Me content';
+            break;
+          case 'projects':
+            this.boxContent = 'Projects content';
+            break;
+          case 'resume':
+            this.boxContent = 'My CV';
+            break;
+          case 'education':
+            this.boxContent = 'My education';
+            break;
+          case 'contact':
+            this.boxContent = 'Contact Form';
+            break;
+        }
        
       }
     }
@@ -263,11 +320,23 @@
 
 
 .background-image {
-  background-image: url('assets/images/bg.jpg'); /* Replace with your URL */
+  /* background-image: url('assets/images/bg.jpg');  */
+  background-color: #F7F7F7;
   background-size: cover; /* Ensure image covers the container */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent image repetition */
 }
+
+
+.card-body {
+  /* background-color: #3B5998;  */
+  background-image: url('assets/images/bg.jpg');
+  color: #fff; /* White text */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 
 
 @media (max-width: 768px) {
